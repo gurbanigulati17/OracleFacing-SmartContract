@@ -279,12 +279,17 @@ function App() {
   return (
     <div>
       {currentAccount === '' ? (
-        <button
-          className="text-2xl font-bold py-3 px-12 bg-[#f1c232] rounded-lg mb-10 hover:scale-105 transition duration-500 ease-in-out"
-          onClick={connectWallet}
-        >
-          Connect Wallet
-        </button>
+        <div className="App">
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <form>
+            <Button variant="contained" color="primary" onClick={connectWallet}>
+              Connect Wallet
+            </Button>
+          </form>
+        </div>
       ) : correctNetwork ? (
         <div className="App">
           <h2> Oracle Facing GeoConsumer App </h2>
@@ -342,8 +347,9 @@ function App() {
                 Send Request
               </Button>
             ) : (
-              <h4 style ={{color:'red'}}>
-                Insufficient balance. Please fund the contract at {OracleFacingGeoConsumerAddress} with 1 LINK per Oracle call
+              <h4 style={{ color: 'red' }}>
+                Insufficient balance. Please fund the contract at{' '}
+                {OracleFacingGeoConsumerAddress} with 1 LINK per Oracle call
               </h4>
             )}
           </div>
