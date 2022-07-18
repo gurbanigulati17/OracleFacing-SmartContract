@@ -55,6 +55,11 @@ task("sendRequest", "Sends request to Shamba Geospatial Oracle")
                 geometry_array[i][1] = JSON.stringify(geometry_array[i][1])
             }
 
+
+            for (let j = 0; j < geometry_array.length; j++) {
+
+               console.log(geometry_array[j][0] + "Value" + geometry_array[j][1])
+            }
             //console.log(typeof(geometry_array))
 
             const geoConsumerContract = await new ethers.Contract(
@@ -63,7 +68,7 @@ task("sendRequest", "Sends request to Shamba Geospatial Oracle")
                 signer
             )
 
-            await geoConsumerContract.requestGeostatsData(agg_x, dataset_code, selected_band, image_scale, start_date, end_date, geometry_array)
+            //await geoConsumerContract.requestGeostatsData(agg_x, dataset_code, selected_band, image_scale, start_date, end_date, geometry_array)
 
 
             // await geoConsumerContract.requestGeostatsData("agg_mean", "COPERNICUS/S2_SR", "NDVI", "250", "2021-09-01", "2021-09-10", [

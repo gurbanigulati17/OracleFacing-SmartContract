@@ -13,8 +13,39 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import Grid from '@mui/material/Grid'
+import { makeStyles } from "@material-ui/styles";
+
+
+const useStyles = makeStyles({
+  input: {
+    color: "#FFFFFF !important",
+  
+    "& .MuiOutlinedInput-input": {
+      color: "green"
+    },
+    "& .MuiInputLabel-root": {
+      color: "green"
+    },
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "green"
+    },   
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+      color: "purple"
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "purple"
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "purple"
+    }
+  }
+});
+
 
 function App() {
+  const classes = useStyles();
+
+
   const [latestCids, setLatestCids] = useState([])
   const [latestData, setLatestData] = useState('')
   const [numberOfLinks, setNumberOfLinks] = useState(0)
@@ -30,12 +61,6 @@ function App() {
   const [selectedEndDate, setSelectedEndDate] = useState('')
 
   const [preferredScale, setPreferredScale] = useState(0)
-  const [geometryArea, setGeometryArea] = useState([])
-  const [polygonDimensions, setPolygonDimensions] = useState(0)
-  const [geometryValue, setGeometryValue] = useState()
-  const [geometryArray, setGeometryArray] = useState([])
-  const [count, setCount] = useState(0)
- 
 
   // GeoConsumer Fields
 
@@ -89,7 +114,6 @@ function App() {
     if (selectedDataset === 0) {
       console.log('Dataset after selection: ' + selectedDataset)
       availableBandsValue = GeostatisticsAvailableBands00
-    
     } else if (selectedDataset === 1) {
       console.log('Dataset after selection: ' + selectedDataset)
       availableBandsValue = GeostatisticsAvailableBands01
@@ -303,88 +327,72 @@ function App() {
             balance,
         )
 
+        // console.log('Analysis Type: ' + selected)
+        // console.log('Dataset: ' + selectedDataset)
+        // console.log('Available Bands: ' + selectedAvailableBands)
+        // console.log('Preferred Scale: ' + preferredScale)
+        // console.log('Statistics: ' + selectedStatistics)
+        // console.log('Start Date: ' + selectedStartDate)
+        // console.log('End Date: ' + selectedEndDate)
+
         const agg_x = await setAggFromStatistics()
         const dataset_code = await setDataset()
-        const selected_band = await setAvailableBandsFromSelect()
- 
+
         console.log('Agg_x:' + agg_x)
         console.log('dataset_code:' + dataset_code)
-        console.log('selected_band: ' + selected_band)
+
+        console.log('selected_band: ' + selectedAvailableBands)
         console.log('image_scale: ' + preferredScale)
         console.log('start_date: ' + selectedStartDate)
         console.log('end_date: ' + selectedEndDate)
-        console.log('geometry: '+ geometryArray)
 
+        // if (balance < 1) {
+        //   console.log(
+        //     'Please fund the contract at ' +
+        //       OracleFacingGeoConsumerAddress +
+        //       ' with 1 LINK per Oracle call',
+        //   )
+        // } else {
+        //   const agg_x = 'agg_mean'
+        //   const dataset_code = 'COPERNICUS/S2_SR'
+        //   const selected_band = 'NDVI'
+        //   const image_scale = 250
+        //   const start_date = '2021-09-01'
+        //   const end_date = '2021-09-10'
+        //   const geometry =
+        //     '[[1,[[[19.51171875,4.214943141390651],[18.28125,-4.740675384778361],[26.894531249999996,-4.565473550710278],[27.24609375,1.2303741774326145],[19.51171875,4.214943141390651]]]]]'
 
+        //   console.log(
+        //     agg_x,
+        //     dataset_code,
+        //     selected_band,
+        //     image_scale,
+        //     start_date,
+        //     end_date,
+        //     geometry,
+        //   )
 
-          const aggxo = 'agg_mean'
-          const datasetcode0 = 'COPERNICUS/S2_SR'
-          const selected_band0 = 'NDVI'
-          const image_scale = 250
-          const start_date = '2021-09-01'
-          const end_date = '2021-09-10'
-          const geometry =
-            '[[1,[[[19.51171875,4.214943141390651],[18.28125,-4.740675384778361],[26.894531249999996,-4.565473550710278],[27.24609375,1.2303741774326145],[19.51171875,4.214943141390651]]]]]'
+        //   var geometry_array = JSON.parse(geometry)
+        //   for (var i = 0; i < geometry_array.length; i++) {
+        //     geometry_array[i][1] = JSON.stringify(geometry_array[i][1])
+        //   }
 
+        //   const OracleFacingGeoConsumer = new ethers.Contract(
+        //     OracleFacingGeoConsumerAddress,
+        //     OracleFacingGeoConsumerAbi.abi,
+        //     signer,
+        //   )
 
-            console.log("Dummy Data")
-            console.log('Agg_x:' + aggxo)
-            console.log('dataset_code:' + datasetcode0)
-            console.log('selected_band: ' + selected_band0)
-            console.log('image_scale: ' + image_scale)
-            console.log('start_date: ' + start_date)
-            console.log('end_date: ' + end_date)
-            console.log('geometry: '+ geometry)
-    
-    
-        if (balance < 1) {
-          console.log(
-            'Please fund the contract at ' +
-              OracleFacingGeoConsumerAddress +
-              ' with 1 LINK per Oracle call',
-          )
-        } else {
-          // const agg_x = 'agg_mean'
-          // const dataset_code = 'COPERNICUS/S2_SR'
-          // const selected_band = 'NDVI'
-          // const image_scale = 250
-          // const start_date = '2021-09-01'
-          // const end_date = '2021-09-10'
-          // const geometry =
-          //   '[[1,[[[19.51171875,4.214943141390651],[18.28125,-4.740675384778361],[26.894531249999996,-4.565473550710278],[27.24609375,1.2303741774326145],[19.51171875,4.214943141390651]]]]]'
-
-          // console.log(
-          //   agg_x,
-          //   dataset_code,
-          //   selected_band,
-          //   image_scale,
-          //   start_date,
-          //   end_date,
-          //   geometry,
-          // )
-
-          var geometry_array = JSON.parse(geometry)
-          for (var i = 0; i < geometry_array.length; i++) {
-            geometry_array[i][1] = JSON.stringify(geometry_array[i][1])
-          }
-
-         
-          const OracleFacingGeoConsumer = new ethers.Contract(
-            OracleFacingGeoConsumerAddress,
-            OracleFacingGeoConsumerAbi.abi,
-            signer,
-          )
-
-          // await OracleFacingGeoConsumer.requestGeostatsData(
-          //   agg_x,
-          //   dataset_code,
-          //   selected_band,
-          //   preferredScale,
-          //   selectedStartDate,
-          //   selectedEndDate,
-          //   geometry_array,
-          // )
-        }
+        //   await OracleFacingGeoConsumer.requestGeostatsData(
+        //     agg_x,
+        //     dataset_code,
+        //     selected_band,
+        //     image_scale,
+        //     start_date,
+        //     end_date,
+        //     geometry_array,
+        //   )
+        // }
       } else {
         console.log("ethereum object doesn't exist")
       }
@@ -412,9 +420,8 @@ function App() {
         console.log('Balance hex' + balanceHex)
         const amount =
           ethers.BigNumber.from(balanceHex).toBigInt() / 1000000000000000000n
-
         console.log('Amount ' + amount)
-      
+
         setBalance(amount)
       } else {
         console.log("ethereum object doesn't exist")
@@ -444,22 +451,6 @@ function App() {
   }
   const changeSelectedEndDateOptionHandler = (event) => {
     setSelectedEndDate(event.target.value)
-  }
-
-  const changePolygonDimensionHandler = (event) => {
-    setPolygonDimensions(event.target.value)
-    //  setCount(0)
-  }
-
-  const changeGeometryAreaHandler = () => {
-    if (polygonDimensions > 0) {
-      console.log('Polygon Dimensions: ' + polygonDimensions)
-      const area = []
-      for (let i = 0; i < polygonDimensions; i++) {
-        area[i] = i
-      }
-      setGeometryArea(area)
-    }
   }
 
   const setAggFromStatistics = () => {
@@ -538,95 +529,11 @@ function App() {
     }
   }
 
-  const setAvailableBandsFromSelect = () => {
-    if(selectedDataset === 0 && selectedAvailableBands === 0){
-      let ab = 'L1_AETI_D'
-      return ab      
-    }else if(selectedDataset === 1 && selectedAvailableBands === 0){
-      let ab = 'L1_RET_E'
-      return ab      
-    }else if(selectedDataset === 2 && selectedAvailableBands === 0){
-      let ab = 'ET'
-      return ab      
-    }else if((selectedDataset === 3 || selectedDataset === 11 ||selectedDataset === 12) && selectedAvailableBands === 0){
-      let ab = 'NDVI'
-      return ab      
-    }else if((selectedDataset === 3 || selectedDataset === 11 ||selectedDataset === 12) && selectedAvailableBands === 1){
-      let ab = 'EVI'
-      return ab      
-    }else if((selectedDataset === 4 || selectedDataset === 5) && selectedAvailableBands === 0){
-      let ab = 'precipitation'
-      return ab      
-    }else if(selectedDataset === 6 && selectedAvailableBands === 0){
-      let ab = 'hourlyPrecipRate'
-      return ab      
-    }else if(selectedDataset === 7 && selectedAvailableBands === 0){
-      let ab = 'ssm'
-      return ab      
-    }else if((selectedDataset === 8 || selectedDataset === 9) && selectedAvailableBands === 0){
-      let ab = 'LST_Day_1km'
-      return ab      
-    }else if(selectedDataset === 10 && selectedAvailableBands === 0){
-      let ab = 'Fpar'
-      return ab      
-    }else if(selectedDataset === 10 && selectedAvailableBands === 1){
-      let ab = 'Lai'
-      return ab      
-    }else if(selectedDataset === 13 && selectedAvailableBands === 0){
-      let ab = 'Fpar_500m'
-      return ab      
-    }else if(selectedDataset === 13 && selectedAvailableBands === 1){
-      let ab = 'Lai_500m'
-      return ab      
-    }else if(selectedDataset === 14 && selectedAvailableBands === 0){
-      let ab = 'NDVI'
-      return ab      
-    }else if(selectedDataset === 14 && selectedAvailableBands === 1){
-      let ab = 'EVI'
-      return ab      
-    }else if(selectedDataset === 14 && selectedAvailableBands === 2){
-      let ab = 'EVI2'
-      return ab      
-    }
-  }
-
-  const setPolygonCoordinates = () => {
-    const geometry =
-      '[[1,[[[19.51171875,4.214943141390651],[18.28125,-4.740675384778361],[26.894531249999996,-4.565473550710278],[27.24609375,1.2303741774326145],[19.51171875,4.214943141390651]]]]]'
-    var geometry_array = JSON.parse(geometry)
-    for (let i = 0; i < geometry_array.length; i++) {
-      geometry_array[i][1] = JSON.stringify(geometry_array[i][1])
-    }
-    for (let i = 0; i < geometry_array.length; i++) {
-      console.log(geometry_array[i][1])
-    }
-  }
-
-  const changeGeometryValueHandler = (event) => {
-    const geometry = event.target.value
-
-    setGeometryArray((oldArray) => [
-      ...oldArray,
-      [count + 1, [geometry.toString()]],
-    ])
-
-    setCount(count + 1)
-  }
-
-  const displayGeometryValue = () => {
-    console.log('Total number of polygon data: ' + geometryArray.length)
-    for (let j = 0; j < geometryArray.length; j++) {
-      console.log(
-        'Key: ' + geometryArray[j][0] + '  Value: ' + geometryArray[j][1],
-      )
-    }
-  }
-
+ 
   useEffect(() => {
     //getLatestCid()
     connectWallet()
     checkBalance()
-   
   }, [])
 
   return (
@@ -645,7 +552,7 @@ function App() {
         </div>
       ) : correctNetwork ? (
         <div className="App">
-          <h2> Oracle Facing GeoConsumer App </h2>
+          <h2 style={{color: "#F3F6F9"}}> Oracle Facing GeoConsumer App </h2>
           <br></br>
           <br></br>
           <br></br>
@@ -655,10 +562,12 @@ function App() {
               id="outlined-basic"
               label="Fund Link"
               variant="outlined"
-              style={{ margin: '0px 5px' }}
+              inputProps={{ className: classes.input }}
+              style={{margin: '0px 5px'}}
               size="small"
               value={numberOfLinks}
               onChange={(e) => setNumberOfLinks(e.target.value)}
+              focused
             />
             <Button variant="contained" color="primary" onClick={fundLink}>
               Fund Contract
@@ -666,13 +575,14 @@ function App() {
             <TextField
               id="outlined-basic"
               label="CID"
-              variant="outlined"
-              style={{ margin: '0px 5px' }}
+              variant="filled"
+              inputProps={{ className: classes.input }}
+              style={{ margin: '0px 5px'}}
               size="small"
               value={latestCids}
-              readOnly={true}
-              disabled
+              readOnly={true}              
               onChange={(e) => setLatestCids(e.target.value)}
+              focused
             />
             <Button variant="contained" color="primary" onClick={getLatestCid}>
               Get Latest CID
@@ -680,13 +590,14 @@ function App() {
             <TextField
               id="outlined-basic"
               label="Data"
-              variant="outlined"
-              style={{ margin: '0px 5px' }}
+              variant="filled"
+              inputProps={{ className: classes.input }}
+              style={{ margin: '0px 5px'}}
               size="small"
               value={latestData}
-              readOnly={true}
-              disabled
+              readOnly={true}              
               onChange={(e) => setLatestData(e.target.value)}
+              focused
             />
             <Button variant="contained" color="primary" onClick={getLatestData}>
               Get Latest Data
@@ -714,8 +625,12 @@ function App() {
                         <InputLabel
                           id="analysisType-input-label"
                           variant="outlined"
-                          style={{ margin: '0px 5px' }}
+                          
+                          inputProps={{ className: classes.input }}
+                          style={{ margin: '0px 5px'}}
                           size="small"
+                          focused
+
                         >
                           Type of Analaysis
                         </InputLabel>
@@ -746,8 +661,10 @@ function App() {
                         <InputLabel
                           id="dataset-input-label"
                           variant="outlined"
+                          inputProps={{ className: classes.input }}                          
                           style={{ margin: '0px 5px' }}
                           size="small"
+                          focused
                         >
                           Dataset
                         </InputLabel>
@@ -774,8 +691,10 @@ function App() {
                         <InputLabel
                           id="availableBands-input-label"
                           variant="outlined"
+                          inputProps={{ className: classes.input }}
                           style={{ margin: '0px 5px' }}
                           size="small"
+                          focused
                         >
                           Available Bands
                         </InputLabel>
@@ -804,11 +723,13 @@ function App() {
                           id="preferredScale-number"
                           label="Preferred Scale"
                           type="number"
+                          inputProps={{ className: classes.input }}
                           InputLabelProps={{
                             shrink: true,
                           }}
                           value={preferredScale}
                           onChange={changePreferredScaleHandler}
+                          focused
                         />
                       </FormControl>
                     </Grid>
@@ -823,8 +744,10 @@ function App() {
                         <InputLabel
                           id="statistics-input-label"
                           variant="outlined"
+                          inputProps={{ className: classes.input }}
                           style={{ margin: '0px 5px' }}
                           size="small"
+                          focused
                         >
                           Statistics
                         </InputLabel>
@@ -834,6 +757,7 @@ function App() {
                           value={selectedStatistics}
                           label="Statistics"
                           onChange={changeSelectedStatisticsOptionHandler}
+                          focused
                         >
                           <MenuItem defaultValue=""></MenuItem>
                           {statisticsOptions
@@ -854,11 +778,13 @@ function App() {
                           label="Start Date"
                           type="date"
                           defaultValue=" "
+                          inputProps={{ className: classes.input }}
                           InputLabelProps={{
                             shrink: true,
                           }}
                           value={selectedStartDate}
                           onChange={changeSelectedStartDateOptionHandler}
+                          focused
                         />
                       </FormControl>
                     </Grid>
@@ -869,11 +795,13 @@ function App() {
                           id="enddate"
                           label="End Date"
                           type="date"
+                          inputProps={{ className: classes.input }}
                           InputLabelProps={{
                             shrink: true,
                           }}
                           value={selectedEndDate}
                           onChange={changeSelectedEndDateOptionHandler}
+                          focused
                         />
                       </FormControl>
                     </Grid>
@@ -881,79 +809,6 @@ function App() {
 
                   <br></br>
                   <br></br>
-
-                  <Grid container spacing={24}>
-                    <Grid item xs={4}>
-                      <FormControl fullWidth>
-                        <TextField
-                          required
-                          id="polygon-dimensions"
-                          label="Number of Polygon"
-                          type="number"
-                          value={polygonDimensions}
-                          onChange={changePolygonDimensionHandler}
-                        />
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={changeGeometryAreaHandler}
-                        >
-                          Select
-                        </Button>
-                      </FormControl>
-                    </Grid>
-                  </Grid>
-
-                  <br></br>
-                  <br></br>
-                  <div>
-                    {geometryArea.length > 0 ? (
-                      <div>
-                        <h4 style={{ color: '#0D80D8' }}>
-                          Please enter the respective polygon coordinates
-                        </h4>
-                        <br></br>
-                        {geometryArea.map((index) => (
-                          <div>
-                            <Grid container spacing={4}>
-                              <Grid item xs={4}>
-                                <FormControl fullWidth>
-                                  <InputLabel
-                                    id="index"
-                                    variant="outlined"
-                                    style={{ margin: '0px 5px' }}
-                                    size="small"
-                                  >
-                                    Enter coordinates array of polygon{' '}
-                                    {index + 1}:
-                                  </InputLabel>
-                                </FormControl>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <FormControl fullWidth>
-                                  <TextField
-                                    required
-                                    id={index}
-                                    label="Coordinates"
-                                    value={geometryValue}
-                                    onChange={changeGeometryValueHandler}
-                                  />
-                                </FormControl>
-                              </Grid>
-                            </Grid>
-                            <br></br>
-                            <br></br>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-
-                  <br></br>
-                  <br></br>
-                  
                   <br></br>
                   <br></br>
                   <Button
@@ -963,8 +818,6 @@ function App() {
                   >
                     Send Request
                   </Button>
-                  <br></br>
-                  <br></br>
                 </form>
               </div>
             ) : (

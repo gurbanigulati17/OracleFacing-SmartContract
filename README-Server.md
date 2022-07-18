@@ -54,3 +54,13 @@ npx hardhat getLatestData --contract DEPLOYED_CONTRACT_ADDRESS
 ```
 npx hardhat getLatestCid --contract DEPLOYED_CONTRACT_ADDRESS
 ```
+
+[1,
+    [
+        [19.51171875,4.214943141390651],
+        [18.28125,-4.740675384778361],
+        [26.894531249999996,-4.565473550710278],
+        [27.24609375,1.2303741774326145],
+        [19.51171875,4.214943141390651]
+    ]
+]
